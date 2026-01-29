@@ -1,0 +1,4 @@
+venv/
+career_guidance/venv/
+__pycache__/
+*.pyc

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Guidance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🎯 CareerPath</div>
+            <div class="nav-links">
+                <a href="/" class="nav-link active">Home</a>
+                <a href="/assessment" class="nav-link">Assessment</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Discover Your Ideal Career Path</h1>
+                <p class="hero-subtitle">
+                    AI-powered career guidance tailored to your skills and interests. 
+                    Get personalized recommendations, skill gap analysis, and learning roadmaps.
+                </p>
+                <a href="/assessment" class="btn btn-primary btn-large">
+                    Start Career Assessment →
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <section class="features-section">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3>Step 1: Assessment</h3>
+                    <p>Tell us about your skills, education, and interests through our quick assessment form.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3>Step 2: Analysis</h3>
+                    <p>Our AI engine analyzes your profile against 20+ career paths to find the best matches.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Step 3: Recommendations</h3>
+                    <p>Get personalized career recommendations with match scores and skill gap analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛣️</div>
+                    <h3>Step 4: Roadmap</h3>
+                    <p>Receive a detailed learning roadmap with resources to develop your career path.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="benefits-section">
+        <div class="container">
+            <h2 class="section-title">Why Use CareerPath?</h2>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <span class="benefit-icon">✓</span>
+                    <div class="benefit-content">
+                        <h4>AI-Powered Matching</h4>
+                        <p>Advanced algorithms match your profile to 20+ diverse career paths</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">✓</span>
+                    <div class="benefit-content">
+                        <h4>Skill Gap Analysis</h4>
+                        <p>Identify missing skills and get targeted improvement suggestions</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">✓</span>
+                    <div class="benefit-content">
+                        <h4>Learning Roadmap</h4>
+                        <p>Step-by-step progression from fundamentals to advanced skills</p>
+                    </div>
+                </div>
+                <div class="benefit-item">
+                    <span class="benefit-icon">✓</span>
+                    <div class="benefit-content">
+                        <h4>Free & Easy to Use</h4>
+                        <p>No sign-up required, get instant recommendations</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 CareerPath. AI-Powered Career Guidance System.</p>
+        </div>
+    </footer>
+</body>
+</html>

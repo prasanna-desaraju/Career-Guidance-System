@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Recommendations - Career Guidance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🎯 CareerPath</div>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/assessment" class="nav-link">Assessment</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="results-section">
+            <div class="results-header">
+                <h1>Your Career Recommendations</h1>
+                <p id="educationDisplay"></p>
+            </div>
+
+            <!-- Your Profile Summary -->
+            <div class="card">
+                <h2 class="card-title">Your Profile</h2>
+                <div class="profile-summary">
+                    <div class="profile-item">
+                        <strong>Skills:</strong>
+                        <div id="skillsList" class="skills-tags"></div>
+                    </div>
+                    <div class="profile-item">
+                        <strong>Interests:</strong>
+                        <div id="interestsList" class="skills-tags"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Top 3 Recommendations -->
+            <div class="card">
+                <h2 class="card-title">🎯 Top Career Matches</h2>
+                <div id="recommendationsContainer" class="recommendations-grid"></div>
+            </div>
+
+            <!-- Skill Gap Analysis -->
+            <div class="card">
+                <h2 class="card-title">📊 Skill Gap Analysis</h2>
+                <div id="skillGapsContainer" class="skill-gaps"></div>
+            </div>
+
+            <!-- Learning Roadmap -->
+            <div class="card">
+                <h2 class="card-title">🛣️ Learning Roadmap</h2>
+                <div id="roadmapContainer" class="roadmap-container"></div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="/assessment" class="btn btn-secondary">Retake Assessment</a>
+                <a href="/" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 CareerPath. AI-Powered Career Guidance System.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Load recommendation data from localStorage
+        function loadResults() {
+            const data = localStorage.getItem('recommendationData');
+            
+            if (!data) {
+                window.location.href = '/assessment';
+                return;
+            }
+
+            const recommendations = JSON.parse(data);
+            displayProfile(recommendations);
+            displayRecommendations(recommendations);
+            displaySkillGaps(recommendations);
+            displayRoadmap(recommendations);
+        }
+
+        // Display user profile
+        function displayProfile(data) {
+            // Education level
+            if (data.education_level) {
+                document.getElementById('educationDisplay').textContent = 
+                    `Education: ${data.education_level}`;
+            }
+
+            // Skills
+            const skillsList = document.getElementById('skillsList');
+            data.user_skills.forEach(skill => {
+                const tag = document.createElement('span');
+                tag.className = 'tag tag-skill';
+                tag.textContent = skill;
+                skillsList.appendChild(tag);
+            });
+
+            // Interests
+            const interestsList = document.getElementById('interestsList');
+            data.user_interests.forEach(interest => {
+                const tag = document.createElement('span');
+                tag.className = 'tag tag-interest';
+                tag.textContent = interest;
+                interestsList.appendChild(tag);
+            });
+        }
+
+        // Display career recommendations
+        function displayRecommendations(data) {
+            const container = document.getElementById('recommendationsContainer');
+            
+            data.all_recommendations.slice(0, 3).forEach((rec, index) => {
+                const card = document.createElement('div');
+                card.className = 'recommendation-card';
+                
+                const badgeClass = index === 0 ? 'badge-gold' : index === 1 ? 'badge-silver' : 'badge-bronze';
+                const badgeText = index === 0 ? '🥇 Best Match' : index === 1 ? '🥈 2nd Choice' : '🥉 3rd Choice';
+                
+                card.innerHTML = `
+                    <div class="rec-badge ${badgeClass}">${badgeText}</div>
+                    <h3 class="rec-title">${rec.career}</h3>
+                    <p class="rec-domain">Domain: <strong>${rec.domain}</strong></p>
+                    <div class="rec-score">
+                        <div class="score-bar">
+                            <div class="score-fill" style="width: ${rec.match_score}%"></div>
+                        </div>
+                        <span class="score-text">${rec.match_score}% Match</span>
+                    </div>
+                    <div class="rec-description">${rec.description}</div>
+                    <div class="matched-skills">
+                        <strong>Your Matched Skills:</strong>
+                        <div class="skill-tags">
+                            ${rec.matched_skills.map(skill => 
+                                `<span class="tag tag-matched">${skill}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Display skill gaps
+        function displaySkillGaps(data) {
+            const container = document.getElementById('skillGapsContainer');
+            
+            data.all_recommendations.slice(0, 3).forEach((rec, index) => {
+                const gapDiv = document.createElement('div');
+                gapDiv.className = 'gap-item';
+                
+                const skillsList = rec.missing_skills && rec.missing_skills.length > 0
+                    ? rec.missing_skills.map(skill => 
+                        `<span class="tag tag-gap">${skill}</span>`
+                    ).join('')
+                    : '<span class="tag tag-success">No missing skills!</span>';
+                
+                gapDiv.innerHTML = `
+                    <h4>${rec.career}</h4>
+                    <div class="gap-skills">
+                        ${skillsList}
+                    </div>
+                `;
+                
+                container.appendChild(gapDiv);
+            });
+        }
+
+        // Display learning roadmap
+        function displayRoadmap(data) {
+            const container = document.getElementById('roadmapContainer');
+            
+            if (!data.roadmaps || data.roadmaps.length === 0) {
+                container.innerHTML = '<p>No roadmap available</p>';
+                return;
+            }
+
+            data.roadmaps.slice(0, 3).forEach(roadmap => {
+                const roadmapDiv = document.createElement('div');
+                roadmapDiv.className = 'roadmap-item';
+                
+                let roadmapHTML = `<h4>${roadmap.career}</h4>`;
+                
+                Object.keys(roadmap.roadmap).forEach((level, idx) => {
+                    const skills = roadmap.roadmap[level];
+                    const resource = roadmap.resources[level];
+                    
+                    roadmapHTML += `
+                        <div class="roadmap-level">
+                            <div class="level-header">
+                                <span class="level-number">${idx + 1}</span>
+                                <span class="level-title">${level}</span>
+                            </div>
+                            <div class="level-skills">
+                                ${skills.map(skill => 
+                                    `<span class="skill-item">• ${skill}</span>`
+                                ).join('')}
+                            </div>
+                            <div class="level-resources">
+                                <small><strong>Resources:</strong> ${resource.join(', ')}</small>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                roadmapDiv.innerHTML = roadmapHTML;
+                container.appendChild(roadmapDiv);
+            });
+        }
+
+        // Load results on page load
+        window.addEventListener('load', loadResults);
+    </script>
+</body>
+</html>

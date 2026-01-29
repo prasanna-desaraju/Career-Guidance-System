@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Assessment - Career Guidance System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">🎯 CareerPath</div>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/assessment" class="nav-link active">Assessment</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-section">
+            <div class="form-header">
+                <h1>Career Assessment Form</h1>
+                <p>Tell us about yourself to get personalized career recommendations</p>
+            </div>
+
+            <form id="assessmentForm" class="assessment-form">
+                <!-- Education Level -->
+                <div class="form-group">
+                    <label for="education_level" class="form-label">Education Level</label>
+                    <select id="education_level" name="education_level" class="form-control" required>
+                        <option value="">Select your education level</option>
+                        <option value="High School">High School</option>
+                        <option value="Bachelor">Bachelor's Degree</option>
+                        <option value="Master">Master's Degree</option>
+                        <option value="PhD">PhD</option>
+                        <option value="Certification">Certification/Bootcamp</option>
+                        <option value="Self-taught">Self-taught</option>
+                    </select>
+                </div>
+
+                <!-- Skills -->
+                <div class="form-group">
+                    <label for="skills" class="form-label">Your Skills *</label>
+                    <textarea 
+                        id="skills" 
+                        name="skills" 
+                        class="form-control textarea" 
+                        placeholder="Enter your skills (comma or semicolon separated)&#10;Example: Python, SQL, Machine Learning, Data Analysis"
+                        required></textarea>
+                    <small class="form-text">Separate multiple skills with commas or semicolons</small>
+                </div>
+
+                <!-- Interests -->
+                <div class="form-group">
+                    <label for="interests" class="form-label">Your Interests *</label>
+                    <textarea 
+                        id="interests" 
+                        name="interests" 
+                        class="form-control textarea" 
+                        placeholder="What areas interest you?&#10;Example: Data analysis, problem solving, AI"
+                        required></textarea>
+                    <small class="form-text">Share what excites you about your career</small>
+                </div>
+
+                <!-- Preferred Domain -->
+                <div class="form-group">
+                    <label for="domain" class="form-label">Preferred Domain (Optional)</label>
+                    <select id="domain" name="domain" class="form-control">
+                        <option value="">No preference</option>
+                        <option value="AI">Artificial Intelligence</option>
+                        <option value="Web">Web Development</option>
+                        <option value="Data">Data & Analytics</option>
+                        <option value="Cloud">Cloud & DevOps</option>
+                        <option value="Backend">Backend Engineering</option>
+                        <option value="Mobile">Mobile Development</option>
+                        <option value="Security">Cybersecurity</option>
+                        <option value="Business">Business & Product</option>
+                    </select>
+                </div>
+
+                <!-- Strengths -->
+                <div class="form-group">
+                    <label for="strengths" class="form-label">Your Strengths (Optional)</label>
+                    <textarea 
+                        id="strengths" 
+                        name="strengths" 
+                        class="form-control textarea" 
+                        placeholder="What are your key strengths?&#10;Example: Communication, Leadership, Problem-solving"></textarea>
+                    <small class="form-text">This helps us find careers that match your personality</small>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-large" id="submitBtn">
+                        Get My Career Recommendations →
+                    </button>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div id="loadingSpinner" class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing your profile...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="errorMessage" class="error-message" style="display: none;"></div>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 CareerPath. AI-Powered Career Guidance System.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('assessmentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                education_level: document.getElementById('education_level').value,
+                skills: document.getElementById('skills').value,
+                interests: document.getElementById('interests').value,
+                domain: document.getElementById('domain').value,
+                strengths: document.getElementById('strengths').value
+            };
+
+            // Show loading spinner
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('submitBtn').disabled = true;
+            document.getElementById('errorMessage').style.display = 'none';
+
+            try {
+                // Send data to backend
+                const response = await fetch('/get_results', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Store result in localStorage and redirect
+                    localStorage.setItem('recommendationData', JSON.stringify(result.data));
+                    window.location.href = '/results';
+                } else {
+                    // Show error message
+                    const errorDiv = document.getElementById('errorMessage');
+                    errorDiv.textContent = result.message || 'An error occurred';
+                    errorDiv.style.display = 'block';
+                }
+            } catch (error) {
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.textContent = 'Error connecting to server: ' + error.message;
+                errorDiv.style.display = 'block';
+            } finally {
+                // Hide loading spinner
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>

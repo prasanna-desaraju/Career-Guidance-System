@@ -1,0 +1,21 @@
+Career,Required_Skills,Domain,Description
+Data Scientist,Python;SQL;Machine Learning;Statistics;Data Analysis;Pandas;NumPy,AI,Analyzes data and builds predictive models to drive business decisions
+Machine Learning Engineer,Python;TensorFlow;PyTorch;Deep Learning;MLOps;Linux;Docker,AI,Develops and deploys machine learning systems at scale
+Web Developer,HTML;CSS;JavaScript;React;Node.js;SQL;Git,Web,Creates interactive and responsive web applications
+Full Stack Developer,HTML;CSS;JavaScript;React;Node.js;MongoDB;PostgreSQL,Web,Builds complete web applications from frontend to backend
+Python Developer,Python;Django;Flask;SQL;Git;API Development,Backend,Develops server-side applications using Python frameworks
+Business Analyst,SQL;Excel;Statistics;Communication;Data Visualization;Power BI,Business,Analyzes business processes and recommends data-driven solutions
+Data Analyst,SQL;Excel;Python;Power BI;Tableau;Statistics;Data Visualization,Data,Transforms raw data into actionable insights
+Cloud Engineer,AWS;Azure;Linux;Docker;Kubernetes;Git;CI/CD,Cloud,Manages and optimizes cloud infrastructure
+DevOps Engineer,Linux;Docker;Kubernetes;Jenkins;CI/CD;AWS;Scripting,Cloud,Automates deployment and manages infrastructure
+Front End Developer,HTML;CSS;JavaScript;React;Vue.js;Design;Responsive Design,Web,Creates beautiful and user-friendly web interfaces
+Backend Engineer,Python;Java;SQL;API Design;Microservices;Docker;Linux,Backend,Builds robust server-side systems and APIs
+Database Administrator,SQL;NoSQL;Linux;Database Design;Backup;Performance Tuning,Database,Maintains and optimizes database systems
+AI Engineer,Python;Machine Learning;Neural Networks;Deep Learning;Natural Language Processing;Computer Vision,AI,Develops advanced AI systems and algorithms
+Cybersecurity Analyst,Linux;Network Security;Cryptography;Ethical Hacking;Penetration Testing;Python,Security,Protects organizations from cyber threats
+Product Manager,SQL;Analytics;Communication;Strategic Thinking;User Research;Data Visualization,Product,Defines product vision and strategy based on data
+Software Architect,Python;Java;System Design;Scalability;Microservices;Cloud,Architecture,Designs large-scale software systems
+QA Engineer,Testing;Automation;Selenium;Python;SQL;Debugging;CI/CD,QA,Ensures software quality through comprehensive testing
+Mobile Developer,Java;Kotlin;Swift;React Native;Flutter;API Integration,Mobile,Develops applications for iOS and Android platforms
+Solutions Architect,AWS;Azure;System Design;SQL;Communication;Cloud Services,Cloud,Designs IT solutions tailored to business needs
+NLP Engineer,Python;Natural Language Processing;Machine Learning;Deep Learning;TensorFlow;PyTorch,AI,Develops systems that understand and process human language
