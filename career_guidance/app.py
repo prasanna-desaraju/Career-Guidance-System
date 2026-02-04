@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # Get the absolute path to the career_guidance directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATASET_PATH = os.path.join(BASE_DIR, 'dataset', 'career_data.csv')
+DATASET_PATH = os.path.join(BASE_DIR, 'dataset', 'career_dataset.csv')
 
 # Initialize recommendation engine
 try:

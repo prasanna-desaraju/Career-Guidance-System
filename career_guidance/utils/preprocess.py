@@ -110,12 +110,13 @@ class CareerMatcher:
         """
         careers = {}
         for idx, row in self.df.iterrows():
-            career_name = row['Career']
-            skills = [s.strip() for s in row['Required_Skills'].split(';')]
+            career_name = row['Recommended Career']
+            skills = [s.strip() for s in row['Skills'].split(',')]
+            specialization = row.get('Specialization', 'General')
             careers[career_name] = {
                 'skills': skills,
-                'domain': row['Domain'],
-                'description': row['Description']
+                'domain': specialization,
+                'description': f"{career_name} in {specialization}"
             }
         return careers
 
